@@ -2,9 +2,8 @@ package main
 
 type gameState struct {
 	mainDeck deck
-	dealer   dealer
+	dealer   player
 	player   player
-	turn     int
 }
 
 func (gs gameState) calculateWinner() string {

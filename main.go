@@ -24,7 +24,7 @@ func printGameRules() {
 }
 
 func gameSetup() gameState {
-	gs := gameState{mainDeck: newDeck(), player: player{}, dealer: dealer{}, turn: 0}
+	gs := gameState{mainDeck: newDeck(), player: player{}, dealer: player{}}
 	gs.mainDeck.shuffle()
 	gs.mainDeck.deal([]*deck{&gs.dealer.hand, &gs.player.hand}, 2)
 	gs.dealer.calculateScore()
@@ -37,7 +37,7 @@ func gameLoop(gs gameState) {
 	for {
 		fmt.Println("\n________________")
 		fmt.Println("Dealer shows 1 card")
-		gs.dealer.showHand(1)
+		gs.dealer.hand[0].print()
 		fmt.Printf("\nYour hand is as stands:\n Points: %v \n", gs.player.score)
 		gs.player.hand.print()
 		fmt.Print("Do you wish to take a card? (y/n)")
