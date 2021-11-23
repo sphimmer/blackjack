@@ -1,3 +1,3 @@
-module example.com/gocards
+module example.com/blackjack
 
 go 1.16
