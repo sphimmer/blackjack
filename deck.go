@@ -33,20 +33,13 @@ func (d deck) print() {
 
 func (d *deck) deal(hands []*deck, numberOfCards int) {
 	dp := *d
-
 	cardsToBeDealt := dp[:numberOfCards*len(hands)]
 	*d = dp[numberOfCards*len(hands):]
-	cardsDealt := 0
-	for i, card := range cardsToBeDealt {
-		for _, h := range hands {
+
+	for hi, h := range hands {
+		for i := hi; i < len(cardsToBeDealt); i += len(hands) {
 			hp := *h
-			if len(hp) == cardsDealt {
-				*h = append(hp, card)
-				break
-			}
-		}
-		if (i+1)%len(hands) == 0 {
-			cardsDealt++
+			*h = append(hp, cardsToBeDealt[i])
 		}
 	}
 }
