@@ -35,8 +35,9 @@ func gameSetup() gameState {
 }
 
 func gameLoop(gs gameState) {
-	reader := bufio.NewReader(os.Stdin)
+
 	for {
+		reader := bufio.NewReader(os.Stdin)
 		fmt.Println("\n________________")
 		fmt.Println("Dealer shows 1 card")
 		gs.dealer.hand[0].print()
@@ -44,6 +45,7 @@ func gameLoop(gs gameState) {
 		gs.player.hand.print()
 		fmt.Print("Do you wish to take a card? (y/n)")
 		answer, _, err := reader.ReadRune()
+
 		if err != nil {
 			fmt.Println("error reading your response")
 			fmt.Println(err)
@@ -64,6 +66,7 @@ func gameLoop(gs gameState) {
 		}
 		if answer == 'n' {
 			for gs.dealer.score < 17 {
+				fmt.Println("Dealer takes a card")
 				gs.mainDeck.hit(&gs.dealer.hand, 1)
 				gs.dealer.calculateScore()
 			}
