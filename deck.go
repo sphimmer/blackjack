@@ -31,17 +31,18 @@ func (d deck) print() {
 	}
 }
 
-func (d *deck) deal(hands []*deck, numberOfCards int) {
+func (d *deck) deal(numberOfHands int, numberOfCards int) []deck {
 	dp := *d
-	cardsToBeDealt := dp[:numberOfCards*len(hands)]
-	*d = dp[numberOfCards*len(hands):]
-
-	for hi, h := range hands {
-		for i := hi; i < len(cardsToBeDealt); i += len(hands) {
-			hp := *h
-			*h = append(hp, cardsToBeDealt[i])
+	cardsToBeDealt := dp[:numberOfCards*numberOfHands]
+	*d = dp[numberOfCards*numberOfHands:]
+	hands := []deck{}
+	for hi := 0; hi < numberOfHands; hi++ {
+		hands = append(hands, deck{})
+		for i := hi; i < len(cardsToBeDealt); i += numberOfHands {
+			hands[hi] = append(hands[hi], cardsToBeDealt[i])
 		}
 	}
+	return hands
 }
 
 func (d *deck) hit(hand *deck, numberOfCards int) {

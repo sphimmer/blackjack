@@ -26,7 +26,9 @@ func printGameRules() {
 func gameSetup() gameState {
 	gs := gameState{mainDeck: newDeck(), player: player{}, dealer: player{}}
 	gs.mainDeck.shuffle()
-	gs.mainDeck.deal([]*deck{&gs.dealer.hand, &gs.player.hand}, 2)
+	hands := gs.mainDeck.deal(2, 2)
+	gs.dealer.hand = hands[0]
+	gs.player.hand = hands[1]
 	gs.dealer.calculateScore()
 	gs.player.calculateScore()
 	return gs

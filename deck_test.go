@@ -37,25 +37,21 @@ func TestShuffle(t *testing.T) {
 func TestDeal(t *testing.T) {
 	cards := newDeck()
 	originalLength := len(cards)
-	hand1 := deck{}
-	hand2 := deck{}
-	hand3 := deck{}
-	hands := []*deck{&hand1, &hand2, &hand3}
 
-	cards.deal(hands, 10)
+	hands := cards.deal(3, 10)
+	if len(hands) != 3 {
+		t.Errorf("Expected 3 hands but got %v", len(hands))
+	}
 	if len(cards) != originalLength-len(hands)*10 {
 		t.Errorf("Expected Deck size to be %v but got %v", originalLength-len(hands)*10, len(cards))
 	}
 
-	if len(hand1) != 10 {
-		t.Errorf("hand did not get properly dealt, missing cards: %+v", hand1)
+	for _, h := range hands {
+		if len(h) != 10 {
+			t.Errorf("hand did not get properly dealt, missing cards: %+v", h)
+		}
 	}
-	if len(hand2) != 10 {
-		t.Errorf("hand did not get properly dealt, missing cards")
-	}
-	if len(hand3) != 10 {
-		t.Errorf("hand did not get properly dealt, missing cards")
-	}
+
 }
 
 func TestHit(t *testing.T) {
